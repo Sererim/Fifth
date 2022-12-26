@@ -1,3 +1,5 @@
+from random import randint as random
+
 
 class Utils:
     
@@ -34,4 +36,32 @@ class Utils:
             return True
         else:
             return False
+        
+    @staticmethod
+    def random_choice(x: int, y: int, z: int = 0) -> int:
+        foo: int = 0
+        
+        if z == 0:
+            foo = random(x, y)
     
+        return foo
+    
+    def color(col: int):
+        colors = ('\033[95m', #Header 0
+                  '\033[94m', #Blue 1
+                  '\033[96m', #Cyan 2
+                  '\033[92m', #Green 3
+                  '\033[93m', #Warning 4
+                  '\033[91m', #Fail 5
+                  '\033[0m', #ENDC 6
+                  '\033[1m', #Bold 7
+                  '\033[4m', #Underline 8
+                  )
+        return colors[col]
+
+    def isallowed(num: int, left: int, right: int):
+        
+        if left <= num <= right:
+            return True
+        else:
+            return False
