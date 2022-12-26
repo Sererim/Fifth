@@ -4,34 +4,42 @@ from utils import Utils
 
 class FindAndDelete():
     
-    _undesiered: str = 'абв'
+    _undesiered: list[str] = ['абв']
     
     def __init__(self) -> None:
-        og_message: str = ""
+        og_message: list[str] = []
+        message: list[str] = []
         cleaned_message: str = ""
         
         self.og_message = og_message
+        self.message = message
         self.cleaned_message = cleaned_message
         
     def get_message(self, get: str) -> None:
-        self.og_message = get
-    
-    def Find(self, word) -> bool:
-        for i in range(len(word) - 2):
-            if word[i] == self._undesiered[0]:
-                if word[i + 1] == self._undesiered[1]:
-                    if word[i + 2] == self._undesiered[2]:
-                        return True
-            elif len(word) < 3:
-                return False
+        foo: str = ""
+        
+        if len(get) < 3:
+            get += " абв "
+        
+        for i in range(len(get)):
+            if get[i] == ' ':
+                pass
+            elif i % 2 == 0:
+                try:
+                    foo += get[i] + get[i + 1] + get[i + 2]
+                    self.og_message.append(foo)
+                    foo = ""
+                except IndexError:
+                    pass
             else:
-                return False
-                 
+                pass
     
     def clean(self) -> None:
-        self.cleaned_message = filter(FindAndDelete.Find, self.og_message)
+        self.message = list(filter(lambda x: x not in self._undesiered, self.og_message))    
         
-    def show(self) -> None:
+    def show(self) -> str:
+        for i in range(len(self.message)):
+            self.cleaned_message += str(self.message[i])
         return self.cleaned_message
     
     
@@ -44,7 +52,7 @@ def main() -> int:
         fad.get_message(message)
         fad.clean()
         print(f" Original message: {fad.og_message}\n",
-              f"Cleaned message: {fad.show}")
+              f"Cleaned message: {fad.show()}")
         
         if Utils.terminate:
             break
